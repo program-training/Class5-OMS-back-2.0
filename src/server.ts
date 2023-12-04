@@ -12,6 +12,14 @@ import {
   connectionToPostgres,
   insertUsersFromJSONIntoPG,
 } from "./dataAccess/postgreSQL";
+import server from "./graphql/apolloServer";
+import { startStandaloneServer } from "@apollo/server/standalone";
+
+startStandaloneServer(server, {
+  listen: { port: 5000 },
+})
+  .then(({ url }) => console.log(url))
+  .catch((err) => console.log(err));
 
 const app = express();
 

@@ -1,21 +1,28 @@
 export const typeDefs = `#graphql   
   type User {
-    _id: ID
-    isAdmin: Boolean
-    password: string
-    email: String
+    isadmin: Boolean
+    password: String!
+    email: String!
   }
   input UserInput {
-    isAdmin: Boolean
-    password: string
-    email: String
+    isAdmin: Boolean!
+    password: String!
+    email: String!
+  }
+  type ResInfoObj {
+      user: User!
+      token: String!
+    } 
+  type Response {
+    message: String!
+    resInfoObj: ResInfoObj!
   }
   type Query {
-     getUserById(id: ID!): User!
      getUsers: [User!]!
+     login: Response!
   }
   type Mutation {
-    createUser(user: UserInput!): UserInput
+    createUser(user: UserInput!): User!
   } 
   
-     `;
+   `;
