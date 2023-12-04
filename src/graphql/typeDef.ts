@@ -1,11 +1,11 @@
-export const typeDefs = `#graphql   
-  
-    ${booksTypes}
-    ${recipeTypes}
-  
-    type Query{
-      ${booksTypeQueries}
-      ${recipesTypeQueries}
-    } 
-  
-     `;
+import orderTypes, { ordersTypesQueries } from "../orders/typeDef/ordersTypes";
+
+export const typeDefs = `#graphql
+
+${orderTypes}
+
+type Query{
+${ordersTypesQueries}
+}
+
+ `;

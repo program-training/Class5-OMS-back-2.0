@@ -7,7 +7,7 @@ import {
   insertOrderFromAPI,
 } from "../../dataAccess/mongoose";
 import OrderInterface from "../interfaces/OrdersInterface";
-import { Order } from "../models/mongoose/OrderSchema";
+import { Order } from "../models/Orders";
 
 type OrderResult = Promise<OrderInterface | null>;
 
