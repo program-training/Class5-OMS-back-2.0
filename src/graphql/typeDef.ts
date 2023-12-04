@@ -1,17 +1,12 @@
-import recipeTypes, {
-  recipesTypeQueries,
-} from "../recipes/typeDef/recipeTypes";
-import bookTypes, { booksTypeQueries } from "../books/typeDefs/booksTypes";
-import booksTypes from "../books/typeDefs/booksTypes";
-
 export const typeDefs = `#graphql   
-  
-    ${booksTypes}
-    ${recipeTypes}
-  
+  type User {
+     _id?: String
+     isAdmin: Boolean
+     password: string
+     email: String
+  }
     type Query{
-      ${booksTypeQueries}
-      ${recipesTypeQueries}
+     
     } 
   
      `;

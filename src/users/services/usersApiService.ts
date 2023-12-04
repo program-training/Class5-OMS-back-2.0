@@ -31,11 +31,7 @@ export const getUsers = async () => {
 
 export const getUser = async (userId: string) => {
   try {
-    console.log(1.1);
-
     const getUserFromMDB = await getUserById(userId);
-    console.log(1.2);
-
     return getUserFromMDB;
   } catch (error) {
     console.log(chalk.redBright(error));
