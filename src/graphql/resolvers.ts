@@ -1,5 +1,8 @@
+import ordersQueries from "../orders/queries/ordersQueries";
 const resolvers = {
-  Query: {},
+  Query: {
+    ...ordersQueries,
+  },
 };
 
 export default resolvers;
