@@ -26,9 +26,9 @@ export const userTypes = `
 
 export const userQueries = `
 getUsers: [User!]!
-login(user: UserLoginInput!): Response!
 `;
 
 export const userMutation = `
 createUser(user: UserInput!): User!
+login(user: UserLoginInput!): Response!
 `;
