@@ -12,17 +12,26 @@ import {
   connectionToPostgres,
   insertUsersFromJSONIntoPG,
 } from "./dataAccess/postgreSQL";
-import server from "./graphql/apolloServer";
+
 import { startStandaloneServer } from "@apollo/server/standalone";
+import server from "./graphql/apolloServer";
 
 startStandaloneServer(server, {
   listen: { port: 5000 },
 })
-  .then(({ url }) => console.log(url))
-  .catch((err) => console.log(err));
-
-const app = express();
-
+  .then(({ url }) => {
+    console.log(chalk.blueBright(`server run on: ${url}`));
+    connectToMongoose()
+      .then((message) => {
+        console.log(chalk.magentaBright(message));
+      })
+      .catch((error) =>
+        console.log(
+          chalk.redBright("Connect to mongoDB Error: ", error.message)
+        )
+      );
+  })
+  .catch((error) => console.log(error.message));
 app.use(morgan);
 app.use(cors);
 app.use(express.json());
