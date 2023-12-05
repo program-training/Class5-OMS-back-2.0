@@ -1,3 +1,4 @@
+
 import { ApolloServer } from "@apollo/server";
 import { typeDefs } from "./typeDef";
 import resolvers from "./resolvers";
@@ -10,3 +11,4 @@ const server = new ApolloServer({
 
 export default server;
 // plugins: [apolloLogger],
+
