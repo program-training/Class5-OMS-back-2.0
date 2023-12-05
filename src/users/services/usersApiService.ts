@@ -112,7 +112,7 @@ export const login = async (userFromClient: UserLoginInterface) => {
       throw new Error("The email or password is incorrect!");
 
     const token = generateAuthToken(userInDB);
-    const resInfoObj = { token: token, user: userInDB };
+    const resInfoObj = { token: token, user: userInDB as UserInterface };
 
     return { message: "Login successful", resInfoObj };
   } catch (error) {
