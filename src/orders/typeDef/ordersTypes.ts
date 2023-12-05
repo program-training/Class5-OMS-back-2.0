@@ -11,7 +11,7 @@ type ItemInOrder {
   
   type ShippingDetails {
     address: String
-    userId: String
+    userId: ID
     contactNumber: String
     orderType: String
   }
@@ -29,6 +29,7 @@ type ItemInOrder {
 export const ordersTypesQueries = `
 getAllOrdersFromMongoDB:[Order]
 getOrderById(id:ID!):Order
+getOrdersByClientId(userId:ID):[Order]
 `;
 
 export default orderTypes;

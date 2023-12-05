@@ -10,7 +10,8 @@ export const getAllOrdersFromMongoDB = async () => {
 };
 
 interface GetOrderByIdInterface {
-  id: string;
+  id?: string;
+  userId?: string;
 }
 
 export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
@@ -24,12 +25,12 @@ export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
     if (error instanceof Error) return Promise.reject(error);
   }
 };
-export const getOrdersByUserId = async (
+export const getOrdersByClientId = async (
   _: any,
-  { id }: GetOrderByIdInterface
+  { userId }: GetOrderByIdInterface
 ) => {
   try {
-    const orders = await Order.find({ "shippingDetails.userId": id });
+    const orders = await Order.find({ "shippingDetails.userId": userId });
     if (!orders) {
       throw new Error("Can't find your orders.");
     }
