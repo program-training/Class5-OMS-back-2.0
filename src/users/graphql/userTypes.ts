@@ -9,6 +9,7 @@ export const userTypes = `
     password: String!
     email: String!
   }
+  
   type ResInfoObj {
       user: User!
       token: String!
@@ -17,12 +18,14 @@ export const userTypes = `
     message: String!
     resInfoObj: ResInfoObj!
   }
-  type Query {
-     getUsers: [User!]!
-     login: Response!
-  }
-  type Mutation {
-    createUser(user: UserInput!): User!
-  } 
   
    `;
+
+export const userQueries = `
+getUsers: [User!]!
+login: Response!
+`;
+
+export const userMutation = `
+createUser(user: UserInput!): User!
+`;

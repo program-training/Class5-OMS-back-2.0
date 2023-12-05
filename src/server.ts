@@ -12,7 +12,7 @@ import {
   connectionToPostgres,
   insertUsersFromJSONIntoPG,
 } from "./dataAccess/postgreSQL";
-
+const app = express();
 import { startStandaloneServer } from "@apollo/server/standalone";
 import server from "./graphql/apolloServer";
 
