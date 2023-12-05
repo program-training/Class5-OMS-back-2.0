@@ -1,3 +1,4 @@
+
 import ordersQueries from "../orders/queries/ordersQueries";
 const resolvers = {
   Query: {
@@ -6,3 +7,4 @@ const resolvers = {
 };
 
 export default resolvers;
+
