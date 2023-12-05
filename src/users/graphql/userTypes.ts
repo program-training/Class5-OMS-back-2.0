@@ -9,6 +9,7 @@ export const userTypes = `
     password: String!
     email: String!
   }
+  
   type ResInfoObj {
       user: User!
       token: String!
