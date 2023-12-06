@@ -1,5 +1,20 @@
 import { Order } from "../models/Orders";
+interface GetOrderByIdInterface {
+  id: string;
+  userId?: string;
+}
 
+interface SetStatusInterface {
+  orderId: string;
+  status: string;
+}
+
+interface SetOrderData {
+  orderId: string;
+  address: string;
+  contactNumber: string;
+  orderType: string;
+}
 export const getAllOrdersFromMongoDB = async () => {
   try {
     const orders = await Order.find({});
@@ -8,11 +23,6 @@ export const getAllOrdersFromMongoDB = async () => {
     return Promise.reject(error);
   }
 };
-
-interface GetOrderByIdInterface {
-  id?: string;
-  userId?: string;
-}
 
 export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
   try {
@@ -37,5 +47,47 @@ export const getOrdersByClientId = async (
     return orders;
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
+  }
+};
+
+export const updateOrderDetails = async (
+  _: any,
+  { order }: { order: SetOrderData }
+) => {
+  try {
+    const existingOrder = await Order.findById(order.orderId);
+    if (!existingOrder) {
+      throw new Error("Order not found");
+    }
+    existingOrder.set({
+      "shippingDetails.address": order.address,
+      "shippingDetails.contactNumber": order.contactNumber,
+      "shippingDetails.orderType": order.orderType,
+    });
+    await existingOrder.save();
+    return existingOrder;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const updateOrderStatus = async (
+  _: any,
+  { order }: { order: SetStatusInterface }
+) => {
+  try {
+    console.log(order);
+
+    const existingOrder = await Order.findById(order.orderId);
+    console.log(existingOrder);
+
+    if (!existingOrder) {
+      throw new Error("Order not found");
+    }
+    existingOrder.set("status", order.status);
+    await existingOrder.save();
+    return existingOrder;
+  } catch (error) {
+    return Promise.reject(error);
   }
 };

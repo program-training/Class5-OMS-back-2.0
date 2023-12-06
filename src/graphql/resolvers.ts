@@ -1,4 +1,6 @@
-import ordersQueries from "../orders/queries/ordersQueries";
+import ordersQueries, {
+  ordersMutations,
+} from "../orders/queries/ordersQueries";
 import { userQueries, usersMutation } from "../users/graphql/userQueries";
 
 const resolvers = {
@@ -9,6 +11,7 @@ const resolvers = {
 
   Mutation: {
     ...usersMutation,
+    ...ordersMutations,
   },
 };
 

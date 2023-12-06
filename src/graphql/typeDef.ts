@@ -1,4 +1,7 @@
-import orderTypes, { ordersTypesQueries } from "../orders/typeDef/ordersTypes";
+import orderTypes, {
+  ordersTypesMutation,
+  ordersTypesQueries,
+} from "../orders/typeDef/ordersTypes";
 import {
   userTypes,
   userMutation,
@@ -17,5 +20,6 @@ ${userQueries}
 
 type Mutation{
   ${userMutation}
+  ${ordersTypesMutation}
 }
  `;
