@@ -1,6 +1,12 @@
 const orderTypes = `
 scalar Date
 
+enum OrderStatus {
+  pending
+  sent
+  cancelled
+  received
+}
 type ItemInOrder {
     productId: Int
     name: String
@@ -20,10 +26,24 @@ type ItemInOrder {
     _id:ID!
     cartItems: [ItemInOrder]
     orderTime: Date
-    status: String
+    status: OrderStatus!
     price: Float
     shippingDetails: ShippingDetails
   } 
+
+  input UpdateOrderDetailsInput {
+    orderId:String!
+    address: String
+    contactNumber: String
+    orderType: String
+  }
+
+  input UpdateOrderStatusInput {
+    orderId: String!
+    status: OrderStatus!
+  }
+
+
 `;
 
 export const ordersTypesQueries = `
@@ -32,4 +52,8 @@ getOrderById(id:ID!):Order
 getOrdersByClientId(userId:ID):[Order]
 `;
 
+export const ordersTypesMutation = `
+updateOrderDetails(order:UpdateOrderDetailsInput!):Order
+updateOrderStatus(order:UpdateOrderStatusInput!):Order!
+`;
 export default orderTypes;

@@ -59,10 +59,8 @@ export const editOrder = async (
     if (!existingOrder) {
       throw new Error("Order not found");
     }
-
     existingOrder.set(orderData);
     const updatedOrder = await existingOrder.save();
-
     return updatedOrder;
   } catch (error) {
     return Promise.reject(error);
