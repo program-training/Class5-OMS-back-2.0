@@ -1,6 +1,6 @@
 export const userTypes = `  
   type User {
-    isadmin: Boolean
+    isAdmin: Boolean
     password: String!
     email: String!
   }
