@@ -18,14 +18,17 @@ export const userTypes = `
     message: String!
     resInfoObj: ResInfoObj!
   }
-  
+  input UserLoginInput {
+    email: String!
+    password: String!
+  }
    `;
 
 export const userQueries = `
 getUsers: [User!]!
-login: Response!
 `;
 
 export const userMutation = `
 createUser(user: UserInput!): User!
+login(user: UserLoginInput!): Response!
 `;
