@@ -9,6 +9,8 @@ const allowedOrigins = "http://46.19.86.219:5000";
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
   credentials: true,
+  // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  // allowedHeaders: ["Content-Type", "Authorization", "Accept"],
 };
 
 // Then pass these options to cors

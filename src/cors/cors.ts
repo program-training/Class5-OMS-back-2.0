@@ -18,5 +18,6 @@ const corsOptions: CorsOptionsDelegate = (req, callback) => {
   callback(null, { origin: true });
 };
 // const corsHandler = cors(corsOptions);
-const corsHandler = cors();
+const corsHandler = cors(corsOptions);
+
 export default corsHandler;

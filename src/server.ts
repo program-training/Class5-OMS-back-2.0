@@ -35,6 +35,7 @@ startStandaloneServer(server, {
   .catch((error) => console.log(error.message));
 app.use(morgan);
 // app.use(cors);
+
 app.use(express.json());
 app.use(router);
 
