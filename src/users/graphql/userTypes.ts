@@ -5,7 +5,7 @@ export const userTypes = `
     email: String!
   }
   input UserInput {
-    isAdmin: Boolean!
+    isadmin: Boolean!
     password: String!
     email: String!
   }

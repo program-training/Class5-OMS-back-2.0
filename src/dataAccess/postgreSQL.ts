@@ -43,7 +43,7 @@ export const getAllUsersFromPG = async () => {
 export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
   try {
     const tableName = "users";
-    const columns = ["email", "password", "isAdmin"];
+    const columns = ["email", "password", "isadmin"];
     const values = val;
     const query = `INSERT INTO ${tableName} (${columns.join(
       ", "

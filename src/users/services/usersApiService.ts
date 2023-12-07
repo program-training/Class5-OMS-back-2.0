@@ -11,6 +11,7 @@ import {
   getAllUsersFromPG,
   insertUsersIntoPG,
 } from "../../dataAccess/postgreSQL";
+import userRegistrationValidation from "../models/joi/userRegistrationValidation";
 
 type UserResult = Promise<UserInterface | null>;
 
@@ -41,6 +42,8 @@ export const getUser = async (userId: string) => {
 
 export const register = async (user: UserInterface): UserResult => {
   try {
+    const { error } = userRegistrationValidation(user);
+    if (error?.details[0].message) throw new Error(error?.details[0].message);
     const users = await getUsers();
 
     const userRegistered = users.find(
