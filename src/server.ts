@@ -3,8 +3,8 @@ import express from "express";
 import router from "./router/router";
 import chalk from "chalk";
 import morgan from "./logger/morgan";
-// import cors from "./cors/cors";
-// import cors from "./cors/apolloCors/apolloCors";
+import corsHandler from "./graphql/apolloCors/apolloCors";
+
 import {
   connectToMongoose,
   insertOrdersIntoMongoose,
@@ -33,9 +33,9 @@ startStandaloneServer(server, {
       );
   })
   .catch((error) => console.log(error.message));
-app.use(morgan);
-// app.use(cors);
 
+app.use(morgan);
+app.use(corsHandler);
 app.use(express.json());
 app.use(router);
 
