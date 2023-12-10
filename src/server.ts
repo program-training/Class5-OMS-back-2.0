@@ -1,26 +1,46 @@
 import "dotenv/config";
 import express from "express";
-import router from "./router/router";
 import chalk from "chalk";
 import morgan from "./logger/morgan";
-import cors from "./cors/cors";
-import {
-  connectToMongoose,
-  insertOrdersIntoMongoose,
-} from "./dataAccess/mongoose";
-import {
-  connectionToPostgres,
-  insertUsersFromJSONIntoPG,
-} from "./dataAccess/postgreSQL";
+// import cors from "./cors/cors";
+import { connectToMongoose } from "./dataAccess/mongoose";
+import { connectionToPostgres } from "./dataAccess/postgreSQL";
+import { ApolloServer } from "@apollo/server";
+import cors from "cors";
+// import server from "./graphql/apolloServer";
+import { typeDefs } from "./graphql/typeDef";
+import { resolvers } from "./graphql/resolvers";
+import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import http from "http";
 const app = express();
-import { startStandaloneServer } from "@apollo/server/standalone";
-import server from "./graphql/apolloServer";
+const startApolloServer = async () => {
+  const httpServer = http.createServer(app);
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
 
-startStandaloneServer(server, {
-  listen: { port: 5000 },
-})
-  .then(({ url }) => {
-    console.log(chalk.blueBright(`server run on: ${url}`));
+  await server.start();
+
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(
+    "/graphql",
+    cors({
+      origin: [process.env.WHITE_LIST || "http://localhost:5173"],
+      credentials: false,
+    }),
+    expressMiddleware(server)
+  );
+
+  app.listen(5000, () => {
+    console.log(`🚀 Server ready at http://localhost:5000/graphql`);
+  });
+};
+startApolloServer()
+  .then(() => {
     connectToMongoose()
       .then((message) => {
         console.log(chalk.magentaBright(message));
@@ -31,23 +51,8 @@ startStandaloneServer(server, {
         )
       );
   })
-  .catch((error) => console.log(error.message));
-app.use(morgan);
-app.use(cors);
-app.use(express.json());
-app.use(router);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(chalk.blueBright(`Server listening on port: ${PORT}`));
-
-  connectToMongoose()
-    .then((message) => console.log(message))
-    .catch((error) => console.log(error.message));
-  insertOrdersIntoMongoose();
-
-  connectionToPostgres()
-    .then((message) => console.log(message))
-    .catch((error) => console.log(error.message));
-  insertUsersFromJSONIntoPG();
-});
+  .then(() => {
+    connectionToPostgres()
+      .then((message) => console.log(message))
+      .catch((error) => console.log(error.message));
+  });
