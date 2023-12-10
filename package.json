@@ -46,6 +46,8 @@
     "jsonfile": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
+    "mongoose-trigger": "^1.0.1",
+    "mongoose-trigger-fix-remove": "^1.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.11.3",
     "uuid": "^9.0.0"
