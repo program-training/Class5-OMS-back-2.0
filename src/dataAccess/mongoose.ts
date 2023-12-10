@@ -65,8 +65,8 @@ export const getUserById = async (id: string) => {
 export const insertOrderFromAPI = async (order: OrderInterface) => {
   try {
     const newOrder = new Order(order);
-    const orderFromDB = await newOrder.save();
-    return orderFromDB;
+    await newOrder.save();
+    return newOrder;
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
   }

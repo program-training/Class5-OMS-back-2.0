@@ -1,12 +1,6 @@
 const orderTypes = `
 scalar Date
 
-enum OrderStatus {
-  pending
-  sent
-  cancelled
-  received
-}
 type ItemInOrder {
     productId: Int
     name: String
@@ -19,14 +13,14 @@ type ItemInOrder {
     address: String
     userId: ID
     contactNumber: String
-    orderType: String
+    orderType: String!
   }
   
   type Order {
     _id:ID!
     cartItems: [ItemInOrder]
     orderTime: Date
-    status: OrderStatus!
+    status: String!
     price: Float
     shippingDetails: ShippingDetails
   } 
@@ -40,9 +34,31 @@ type ItemInOrder {
 
   input UpdateOrderStatusInput {
     orderId: String!
-    status: OrderStatus!
+    status: String!
   }
 
+  input ItemInOrderInput {
+    productId: Int
+    name: String
+    description: String
+    price: Float
+    quantity: Int
+  }
+  
+  input ShippingDetailsInput {
+    address: String
+    userId: ID
+    contactNumber: String
+    orderType: String
+  }
+
+  input NewOrderInput {
+    cartItems: [ItemInOrderInput]
+    orderTime: Date
+    status: String
+    price: Float
+    shippingDetails: ShippingDetailsInput
+  } 
 
 `;
 
@@ -55,5 +71,6 @@ getOrdersByClientId(userId:ID):[Order]
 export const ordersTypesMutation = `
 updateOrderDetails(order:UpdateOrderDetailsInput!):Order
 updateOrderStatus(order:UpdateOrderStatusInput!):Order!
+createNewOrder(newOrder:NewOrderInput!):Order!
 `;
 export default orderTypes;
