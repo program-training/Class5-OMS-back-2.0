@@ -3,8 +3,7 @@ import express from "express";
 import router from "./router/router";
 import chalk from "chalk";
 import morgan from "./logger/morgan";
-import corsHandler from "./graphql/apolloCors/apolloCors";
-
+import corsHandler from "./graphql/apolloServer";
 import {
   connectToMongoose,
   insertOrdersIntoMongoose,

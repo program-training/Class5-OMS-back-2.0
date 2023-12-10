@@ -1,12 +1,26 @@
 import { ApolloServer } from "@apollo/server";
 import { typeDefs } from "./typeDef";
 import resolvers from "./resolvers";
-import apolloLogger from "./Logger/apolloLogger";
+import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
+import express from "express";
+
+const app = express();
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [apolloLogger],
 });
 
-export default server;
+app.use(
+  "/graphql",
+  cors({
+    origin: [process.env.WHITELIST || "http://localhost:5000"],
+    credentials: true,
+  }),
+  expressMiddleware(server)
+);
+
+const corsHandler = app;
+
+export default corsHandler;
